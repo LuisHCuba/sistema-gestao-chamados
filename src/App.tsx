@@ -45,7 +45,7 @@ function App() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <img 
-            src="/sistema-gestao-chamados/logo.png" 
+            src="/sistema-gestao-chamados/src/logos neovia/Logo Color.png" 
             alt="Neovia Logo" 
             className="h-24 mx-auto mb-8"
           />
