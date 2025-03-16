@@ -307,6 +307,32 @@
       /* Pricing */
       .pricing {
         background-color: var(--color-light);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .pricing::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+        border-radius: 50%;
+        z-index: 1;
+      }
+      
+      .pricing::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+        border-radius: 50%;
+        z-index: 1;
       }
 
       .pricing-plans {
@@ -314,6 +340,8 @@
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
         margin-bottom: 3rem;
+        position: relative;
+        z-index: 2;
       }
 
       .plan {
@@ -326,15 +354,40 @@
         flex-direction: column;
         transition: var(--transition);
         border: 1px solid #e2e8f0;
+        overflow: hidden;
+        animation: fadeIn 0.8s ease both;
       }
 
       .plan:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
         box-shadow: var(--shadow-lg);
+      }
+      
+      .plan::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+        opacity: 0;
+        transition: var(--transition);
+      }
+      
+      .plan:hover::before {
+        opacity: 1;
       }
 
       .plan.premium {
-        border-color: var(--color-primary);
+        border-color: rgba(37, 99, 235, 0.3);
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+      }
+      
+      .plan.premium:hover {
+        transform: scale(1.05) translateY(-8px);
       }
 
       .plan-badge {
@@ -342,12 +395,14 @@
         top: -12px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--color-primary);
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         color: white;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 1.5rem;
         border-radius: 20px;
         font-size: 0.875rem;
         font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 3;
       }
 
       .plan-header {
@@ -363,6 +418,7 @@
       .plan-price {
         text-align: center;
         margin-bottom: 1.5rem;
+        position: relative;
       }
 
       .plan-price .price {
@@ -402,6 +458,13 @@
         border-bottom: 1px solid #e2e8f0;
         position: relative;
         padding-left: 1.5rem;
+        transition: var(--transition);
+      }
+      
+      .plan-features li:hover {
+        background-color: rgba(37, 99, 235, 0.03);
+        border-radius: 4px;
+        padding-left: 1.75rem;
       }
 
       .plan-features li:last-child {
@@ -426,6 +489,9 @@
         padding: 2rem;
         box-shadow: var(--shadow-sm);
         margin-top: 2rem;
+        position: relative;
+        z-index: 2;
+        animation: fadeIn 1s ease 0.6s both;
       }
 
       .pricing-note h3 {
@@ -442,12 +508,21 @@
       .note-item {
         display: flex;
         align-items: center;
+        padding: 0.75rem;
+        transition: var(--transition);
+        border-radius: var(--border-radius);
+      }
+      
+      .note-item:hover {
+        background-color: rgba(37, 99, 235, 0.05);
+        transform: translateX(5px);
       }
 
       .note-icon {
         color: var(--color-success);
         margin-right: 0.75rem;
         font-weight: bold;
+        font-size: 1.2rem;
       }
 
       /* Detalhes */
@@ -464,6 +539,19 @@
         border-bottom: 2px solid #e2e8f0;
         margin-bottom: 2rem;
         overflow-x: auto;
+        padding-bottom: 1px;
+        position: relative;
+      }
+      
+      .tabs-nav::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 2px;
+        width: 50px;
+        background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+        pointer-events: none;
       }
 
       .tab-btn {
@@ -485,7 +573,7 @@
         left: 0;
         width: 100%;
         height: 2px;
-        background-color: var(--color-primary);
+        background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
         transform: scaleX(0);
         transition: var(--transition);
       }
@@ -497,23 +585,37 @@
       .tab-btn.active::after {
         transform: scaleX(1);
       }
+      
+      .tab-btn:hover:not(.active) {
+        color: var(--color-primary-dark);
+        background-color: rgba(37, 99, 235, 0.05);
+        border-radius: 4px 4px 0 0;
+      }
 
       .tab-content {
         display: none;
+        animation: fadeIn 0.5s ease;
       }
 
       .tab-content.active {
         display: block;
-        animation: fadeIn 0.5s ease;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
       }
 
       .tab-content h3 {
         margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+      }
+      
+      .tab-content h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+        border-radius: 3px;
       }
 
       /* Tech Grid */
@@ -527,11 +629,41 @@
         background-color: var(--color-light);
         padding: 1.5rem;
         border-radius: var(--border-radius);
+        transition: var(--transition);
+        animation: fadeIn 0.8s ease both;
+        animation-delay: calc(0.2s * var(--animation-order, 0));
+      }
+      
+      .tech-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
       }
 
       .tech-item h4 {
         color: var(--color-primary);
         margin-bottom: 1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+      }
+      
+      .tech-item h4::before {
+        content: "⚙️";
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+      }
+      
+      .tech-item ul li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1.25rem;
+      }
+      
+      .tech-item ul li::before {
+        content: "▹";
+        position: absolute;
+        left: 0;
+        color: var(--color-primary);
       }
 
       /* Timeline */
@@ -547,20 +679,23 @@
         left: 20px;
         height: 100%;
         width: 2px;
-        background-color: #e2e8f0;
+        background: linear-gradient(to bottom, var(--color-primary), rgba(37, 99, 235, 0.3));
+        border-radius: 1px;
       }
 
       .timeline-item {
         display: flex;
         margin-bottom: 2rem;
         position: relative;
+        animation: fadeIn 0.8s ease both;
+        animation-delay: calc(0.2s * var(--animation-order, 0));
       }
 
       .timeline-marker {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: var(--color-primary);
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         color: white;
         display: flex;
         align-items: center;
@@ -570,14 +705,34 @@
         z-index: 2;
         flex-shrink: 0;
         margin-right: 1.5rem;
+        box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.1);
+        transition: var(--transition);
+      }
+      
+      .timeline-item:hover .timeline-marker {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.15);
       }
 
       .timeline-content {
         padding-top: 0.5rem;
+        background-color: white;
+        border-radius: var(--border-radius);
+        padding: 1rem 1.5rem;
+        border-left: 3px solid var(--color-primary);
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        flex-grow: 1;
+      }
+      
+      .timeline-item:hover .timeline-content {
+        transform: translateX(5px);
+        box-shadow: var(--shadow);
       }
 
       .timeline-content h4 {
         margin-bottom: 0.5rem;
+        color: var(--color-primary);
       }
 
       .timeline-content p {
@@ -589,6 +744,13 @@
         font-weight: 600;
         color: var(--color-primary);
         text-align: right;
+        margin-top: 1rem;
+        animation: fadeIn 1s ease 0.8s both;
+        padding: 0.75rem 1.5rem;
+        background-color: rgba(37, 99, 235, 0.05);
+        border-radius: var(--border-radius);
+        display: inline-block;
+        float: right;
       }
 
       /* Support Grid */
@@ -603,11 +765,67 @@
         padding: 1.5rem;
         border-radius: var(--border-radius);
         box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        animation: fadeIn 0.8s ease both;
+        animation-delay: calc(0.2s * var(--animation-order, 0));
+      }
+      
+      .support-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(37, 99, 235, 0.03);
+        z-index: -1;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s ease;
+      }
+      
+      .support-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+      }
+      
+      .support-item:hover::before {
+        transform: scaleX(1);
+        transform-origin: left;
       }
 
       .support-item h4 {
         color: var(--color-primary);
         margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+      }
+      
+      .support-item h4::before {
+        content: "";
+        width: 25px;
+        height: 25px;
+        background-color: rgba(37, 99, 235, 0.1);
+        margin-right: 0.75rem;
+        border-radius: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 60%;
+      }
+      
+      .support-item:nth-child(1) h4::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M13 14h-2v-2h2m0-6h-2v4h2M12 22c-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z'/%3E%3C/svg%3E");
+      }
+      
+      .support-item:nth-child(2) h4::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M12 16c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3m0-9c3.31 0 6 2.69 6 6 0 .93-.22 1.81-.59 2.59l3.53 3.53L20 20.06l-3.53-3.53C15.5 17.21 13.81 18 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6m10-3H2v2h20V4z'/%3E%3C/svg%3E");
+      }
+      
+      .support-item:nth-child(3) h4::before {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M21 11c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4 9 4v6m-9 10c4.09-1.35 7-5.57 7-10V6.3l-7-3.11L5 6.3V11c0 4.43 2.91 8.65 7 10z'/%3E%3C/svg%3E");
       }
 
       .support-item p {
@@ -764,6 +982,38 @@
         
         .hero h2 {
           font-size: 1.75rem;
+        }
+        
+        .plan.premium {
+          transform: scale(1);
+          order: -1;
+        }
+        
+        .plan.premium:hover {
+          transform: translateY(-8px);
+        }
+        
+        .pricing-plans {
+          gap: 2.5rem;
+        }
+        
+        .tabs-nav {
+          padding-bottom: 0;
+        }
+        
+        .tab-btn {
+          padding: 0.75rem 1.25rem;
+          font-size: 0.9rem;
+        }
+        
+        .timeline-content {
+          padding: 0.75rem 1rem;
+        }
+        
+        .timeline-marker {
+          width: 30px;
+          height: 30px;
+          font-size: 0.9rem;
         }
       }
     </style>
@@ -945,7 +1195,7 @@
               <div class="tab-content" id="tecnologia">
                 <h3>Tecnologias Utilizadas</h3>
                 <div class="tech-grid">
-                  <div class="tech-item">
+                  <div class="tech-item" style="--animation-order: 1">
                     <h4>Frontend</h4>
                     <ul>
                       <li>React.js</li>
@@ -954,7 +1204,7 @@
                       <li>PWA (Progressive Web App)</li>
                     </ul>
                   </div>
-                  <div class="tech-item">
+                  <div class="tech-item" style="--animation-order: 2">
                     <h4>Backend</h4>
                     <ul>
                       <li>Node.js</li>
@@ -963,7 +1213,7 @@
                       <li>API RESTful</li>
                     </ul>
                   </div>
-                  <div class="tech-item">
+                  <div class="tech-item" style="--animation-order: 3">
                     <h4>Infraestrutura</h4>
                     <ul>
                       <li>AWS ou Azure Cloud</li>
@@ -978,28 +1228,28 @@
               <div class="tab-content" id="prazos">
                 <h3>Prazos e Entregas</h3>
                 <div class="timeline">
-                  <div class="timeline-item">
+                  <div class="timeline-item" style="--animation-order: 1">
                     <div class="timeline-marker">1</div>
                     <div class="timeline-content">
                       <h4>Análise e Planejamento</h4>
                       <p>2 semanas - Levantamento de requisitos e design da solução</p>
                     </div>
                   </div>
-                  <div class="timeline-item">
+                  <div class="timeline-item" style="--animation-order: 2">
                     <div class="timeline-marker">2</div>
                     <div class="timeline-content">
                       <h4>Desenvolvimento</h4>
                       <p>8 semanas - Implementação das funcionalidades</p>
                     </div>
                   </div>
-                  <div class="timeline-item">
+                  <div class="timeline-item" style="--animation-order: 3">
                     <div class="timeline-marker">3</div>
                     <div class="timeline-content">
                       <h4>Testes e Ajustes</h4>
                       <p>2 semanas - Testes intensivos e correções</p>
                     </div>
                   </div>
-                  <div class="timeline-item">
+                  <div class="timeline-item" style="--animation-order: 4">
                     <div class="timeline-marker">4</div>
                     <div class="timeline-content">
                       <h4>Implantação</h4>
@@ -1007,24 +1257,24 @@
                     </div>
                   </div>
                 </div>
-                <p class="timeline-total">Prazo total estimado: 14 semanas (3,5 meses)</p>
+                <div class="timeline-total">Prazo total estimado: 14 semanas (3,5 meses)</div>
               </div>
               
               <div class="tab-content" id="suporte">
                 <h3>Suporte e Manutenção</h3>
                 <div class="support-grid">
-                  <div class="support-item">
+                  <div class="support-item" style="--animation-order: 1">
                     <h4>Suporte Técnico</h4>
                     <p>Horário de atendimento: Seg-Sex, 08h às 18h</p>
                     <p>Tempo de resposta para incidentes críticos: 2 horas</p>
                   </div>
-                  <div class="support-item">
+                  <div class="support-item" style="--animation-order: 2">
                     <h4>Manutenção Preventiva</h4>
                     <p>Verificações mensais do sistema</p>
                     <p>Atualizações de segurança</p>
                     <p>Otimização de performance</p>
                   </div>
-                  <div class="support-item">
+                  <div class="support-item" style="--animation-order: 3">
                     <h4>Monitoramento</h4>
                     <p>Monitoramento 24/7 da infraestrutura</p>
                     <p>Alertas automáticos de incidentes</p>
