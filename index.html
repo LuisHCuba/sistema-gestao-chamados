@@ -10,40 +10,355 @@
     <link rel="manifest" href="https://luishcuba.github.io/sistema-gestao-chamados/manifest.webmanifest" />
     <title>Sistema de Gestão de Chamados</title>
     <style>
-      .fallback-content {
-        display: none;
-        text-align: center;
-        margin-top: 2rem;
-        font-family: Arial, sans-serif;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        margin: 0;
+        padding: 0;
       }
-      .fallback-logo {
-        max-width: 200px;
+      
+      .container {
+        max-width: 1200px;
         margin: 0 auto;
+        padding: 0 20px;
+      }
+      
+      header {
+        text-align: center;
+        padding: 40px 0;
+      }
+      
+      .logo {
+        max-width: 200px;
+        margin: 0 auto 20px;
         display: block;
       }
-    </style>
-    <script>
-      window.onload = function() {
-        console.log('Página carregada!');
+      
+      h1 {
+        font-size: 2.5rem;
+        color: #111;
+        margin-bottom: 10px;
       }
-    </script>
-    <link rel="stylesheet" href="https://luishcuba.github.io/sistema-gestao-chamados/assets/index-BPM1QZnn.css">
+      
+      h2 {
+        font-size: 1.8rem;
+        color: #555;
+        font-weight: 400;
+        margin-top: 0;
+      }
+      
+      .hero-tagline {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 20px auto;
+        color: #666;
+      }
+      
+      .btn {
+        display: inline-block;
+        background-color: #2563eb;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background-color 0.3s;
+      }
+      
+      .btn:hover {
+        background-color: #1d4ed8;
+      }
+      
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding: 60px 0;
+      }
+      
+      .feature {
+        background-color: #f8fafc;
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+      
+      .feature h3 {
+        color: #2563eb;
+        margin-top: 0;
+        font-size: 1.25rem;
+      }
+      
+      .pricing {
+        background-color: #f1f5f9;
+        padding: 60px 0;
+      }
+      
+      .pricing-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      
+      .pricing-plans {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      
+      .plan {
+        background-color: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+      
+      .plan-header {
+        margin-bottom: 20px;
+      }
+      
+      .plan-price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2563eb;
+        margin: 10px 0;
+      }
+      
+      .plan-price span {
+        font-size: 1rem;
+        color: #64748b;
+        font-weight: 400;
+      }
+      
+      .plan-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px 0;
+      }
+      
+      .plan-features li {
+        padding: 8px 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      
+      .plan-features li:last-child {
+        border-bottom: none;
+      }
+      
+      .plan-features li::before {
+        content: "✓";
+        color: #10b981;
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      
+      .highlighted {
+        border: 2px solid #2563eb;
+        position: relative;
+      }
+      
+      .highlight-badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #2563eb;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      
+      .cta {
+        background-color: #2563eb;
+        color: white;
+        text-align: center;
+        padding: 60px 0;
+      }
+      
+      .cta h2 {
+        color: white;
+        margin-bottom: 20px;
+      }
+      
+      .cta .btn {
+        background-color: white;
+        color: #2563eb;
+        margin-top: 20px;
+      }
+      
+      .cta .btn:hover {
+        background-color: #f8fafc;
+      }
+      
+      .contact {
+        padding: 60px 0;
+        text-align: center;
+      }
+      
+      .contact-info {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+      
+      .contact-method {
+        display: flex;
+        align-items: center;
+        color: #64748b;
+      }
+      
+      .contact-method a {
+        color: #2563eb;
+        text-decoration: none;
+        margin-left: 5px;
+      }
+      
+      footer {
+        background-color: #1e293b;
+        color: #94a3b8;
+        padding: 40px 0;
+        text-align: center;
+      }
+      
+      @media (max-width: 768px) {
+        .pricing-plans {
+          grid-template-columns: 1fr;
+        }
+        
+        .contact-info {
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <div class="fallback-content" id="fallbackContent">
-      <img src="https://luishcuba.github.io/sistema-gestao-chamados/src/logos%20neovia/Logo%20Color.png" alt="Neovia Logo" class="fallback-logo">
-      <h1>Sistema de Gestão de Chamados</h1>
-      <p>Carregando a aplicação...</p>
-    </div>
-    <script type="module" src="https://luishcuba.github.io/sistema-gestao-chamados/assets/index-itfrIUQ_.js"></script>
-    <script>
-      // Exibir conteúdo de fallback após 3 segundos se a aplicação não carregar
-      setTimeout(function() {
-        if (!document.getElementById('root').hasChildNodes()) {
-          document.getElementById('fallbackContent').style.display = 'block';
-        }
-      }, 3000);
-    </script>
+    <header>
+      <div class="container">
+        <img src="https://luishcuba.github.io/sistema-gestao-chamados/src/logos%20neovia/Logo%20Color.png" alt="Neovia Logo" class="logo">
+        <h1>Sistema de Chamados</h1>
+        <h2>Proposta Exclusiva para <span style="color: #2563eb;">Neovia</span></h2>
+        <p class="hero-tagline">Solução completa para gestão de chamados de equipamentos, desenvolvida para otimizar seus processos e aumentar a eficiência operacional.</p>
+        <a href="#pricing" class="btn">Ver Planos</a>
+      </div>
+    </header>
+    
+    <section class="container">
+      <div class="features">
+        <div class="feature">
+          <h3>Gestão de Chamados</h3>
+          <p>Acompanhamento em tempo real do status dos chamados, com priorização automática e distribuição inteligente.</p>
+        </div>
+        <div class="feature">
+          <h3>Relatórios Detalhados</h3>
+          <p>Dashboards personalizáveis com métricas importantes e KPIs para tomada de decisão.</p>
+        </div>
+        <div class="feature">
+          <h3>SLA Personalizado</h3>
+          <p>Definição e monitoramento de SLAs específicos para diferentes tipos de equipamentos e prioridades.</p>
+        </div>
+        <div class="feature">
+          <h3>Comunicação Integrada</h3>
+          <p>Sistema de notificações automáticas e chat integrado para melhor comunicação entre equipes.</p>
+        </div>
+        <div class="feature">
+          <h3>Segurança Avançada</h3>
+          <p>Controle de acesso baseado em papéis e registro completo de todas as ações realizadas.</p>
+        </div>
+        <div class="feature">
+          <h3>Manutenção Preventiva</h3>
+          <p>Agendamento e controle de manutenções preventivas para reduzir tempo de inatividade.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="pricing-header">
+          <h2>Opções de Investimento</h2>
+          <p>Escolha o plano que melhor atende às suas necessidades, com suporte contínuo e atualizações regulares.</p>
+        </div>
+        <div class="pricing-plans">
+          <div class="plan highlighted">
+            <div class="highlight-badge">Recomendado</div>
+            <div class="plan-header">
+              <h3>Desenvolvimento Customizado</h3>
+            </div>
+            <div class="plan-price">R$ 8.000,00</div>
+            <p>Implementação inicial</p>
+            <div class="plan-price">R$ 450,00 <span>/mês</span></div>
+            <p>Sustentação e infraestrutura</p>
+            <ul class="plan-features">
+              <li>Sistema totalmente personalizado</li>
+              <li>Integrações específicas</li>
+              <li>Suporte dedicado 8x5</li>
+              <li>Servidor dedicado</li>
+              <li>Monitoramento 24x7</li>
+              <li>Backup diário</li>
+            </ul>
+            <a href="mailto:adm@luiscuba.tech?subject=Proposta%20Customizada%20para%20Neovia" class="btn">Solicitar Proposta</a>
+          </div>
+          <div class="plan">
+            <div class="plan-header">
+              <h3>Solução No-Code</h3>
+            </div>
+            <div class="plan-price">R$ 4.500,00</div>
+            <p>Implementação inicial</p>
+            <div class="plan-price">R$ 250,00 <span>/mês</span></div>
+            <p>Licença Glide + Suporte</p>
+            <ul class="plan-features">
+              <li>Implementação rápida</li>
+              <li>Customização básica</li>
+              <li>Suporte por email</li>
+              <li>Hospedagem na plataforma Glide</li>
+              <li>Atualizações automáticas</li>
+              <li>Documentação completa</li>
+            </ul>
+            <a href="mailto:adm@luiscuba.tech?subject=Proposta%20No-Code%20para%20Neovia" class="btn">Solicitar Proposta</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="cta">
+      <div class="container">
+        <h2>Pronto para Transformar sua Gestão de Equipamentos?</h2>
+        <p>Entre em contato agora e agende uma demonstração personalizada.</p>
+        <a href="mailto:adm@luiscuba.tech?subject=Demonstração%20Sistema%20de%20Chamados" class="btn">Solicitar Demonstração</a>
+      </div>
+    </section>
+    
+    <section class="contact" id="contact">
+      <div class="container">
+        <h2>Entre em Contato</h2>
+        <p>Estamos disponíveis para esclarecer suas dúvidas e discutir como podemos atender às suas necessidades.</p>
+        <div class="contact-info">
+          <div class="contact-method">
+            <span>Email:</span>
+            <a href="mailto:adm@luiscuba.tech">adm@luiscuba.tech</a>
+          </div>
+          <div class="contact-method">
+            <span>Telefone:</span>
+            <a href="tel:+5519981621022">(19) 98162-1022</a>
+          </div>
+          <div class="contact-method">
+            <span>Website:</span>
+            <a href="https://luiscuba.tech" target="_blank">www.luiscuba.tech</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 LHCtech. Todos os direitos reservados.</p>
+      </div>
+    </footer>
   </body>
 </html>
