@@ -36,6 +36,7 @@ Este é um MVP (Produto Mínimo Viável) para um sistema de gestão de chamados 
 - Tailwind CSS
 - Lucide React (ícones)
 - SessionStorage (armazenamento local)
+- PWA (Progressive Web App)
 
 ## Como executar
 
@@ -43,6 +44,35 @@ Este é um MVP (Produto Mínimo Viável) para um sistema de gestão de chamados 
 2. Instale as dependências com `npm install`
 3. Execute o projeto com `npm run dev`
 4. Acesse no navegador: `http://localhost:5173`
+
+## Publicação
+
+O sistema está publicado usando GitHub Pages e pode ser acessado em:
+
+```
+https://luishcuba.github.io/sistema-gestao-chamados/
+```
+
+### Como publicar
+
+1. Construa a versão de produção:
+   ```
+   npm run build
+   ```
+
+2. Copie os arquivos para a branch gh-pages:
+   ```
+   git checkout -b gh-pages
+   git add dist -f
+   git commit -m "Atualizar versão de produção"
+   git push origin gh-pages
+   ```
+
+3. Configure o GitHub Pages nas configurações do repositório:
+   - Acesse Settings > Pages
+   - Selecione a branch gh-pages
+   - Selecione a pasta / (root)
+   - Clique em Save
 
 ## Solução de Problemas
 
@@ -53,6 +83,13 @@ Se encontrar problemas para executar o sistema, tente:
 3. Reinstalar dependências: `npm install`
 4. Verificar se as portas 5173 ou 5175 estão disponíveis
 5. Reiniciar o servidor de desenvolvimento: `npm run dev`
+
+### Problemas com GitHub Pages
+
+Se o site não aparecer após publicação:
+- Verifique se a configuração da base URL está correta no arquivo `vite.config.ts`
+- Aguarde alguns minutos pois o GitHub pode demorar para processar as alterações
+- Certifique-se de que selecionou a branch gh-pages e a pasta raiz (/) nas configurações
 
 ## Próximos passos
 
