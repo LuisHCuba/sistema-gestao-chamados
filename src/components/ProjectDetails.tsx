@@ -308,58 +308,58 @@ export default function ProjectDetails() {
           </div>
         </div>
       </div>
-      
+
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold mb-4 flex items-center">
           <CheckCircle className="h-5 w-5 mr-2 text-green-600" />
           Funcionalidades do Sistema
-        </h2>
+          </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="border rounded-lg p-4">
             <h3 className="font-medium mb-2">Gestão de Equipamentos</h3>
             <ul className="text-sm text-gray-600 space-y-2">
-              <li className="flex items-start">
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>Cadastro completo com especificações técnicas</span>
-              </li>
-              <li className="flex items-start">
+            </li>
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>Histórico de manutenções e chamados vinculados</span>
-              </li>
-              <li className="flex items-start">
+            </li>
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>Controle de garantias e contratos de manutenção</span>
-              </li>
-              <li className="flex items-start">
+            </li>
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>QR Code para identificação rápida e acesso à informações</span>
-              </li>
-            </ul>
-          </div>
-          
+            </li>
+          </ul>
+        </div>
+
           <div className="border rounded-lg p-4">
             <h3 className="font-medium mb-2">Gestão de Chamados</h3>
             <ul className="text-sm text-gray-600 space-y-2">
-              <li className="flex items-start">
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>Abertura de chamados vinculados a equipamentos</span>
-              </li>
-              <li className="flex items-start">
+            </li>
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>Workflow customizável com SLAs por categoria</span>
-              </li>
-              <li className="flex items-start">
+            </li>
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>Atribuição automática baseada em regras</span>
-              </li>
-              <li className="flex items-start">
+            </li>
+            <li className="flex items-start">
                 <span className="text-blue-500 mr-2">•</span>
                 <span>Notificações em tempo real</span>
-              </li>
-            </ul>
-          </div>
-          
+            </li>
+          </ul>
+      </div>
+
           <div className="border rounded-lg p-4">
             <h3 className="font-medium mb-2">Manutenção Preventiva</h3>
             <ul className="text-sm text-gray-600 space-y-2">
@@ -381,7 +381,7 @@ export default function ProjectDetails() {
               </li>
             </ul>
           </div>
-          
+
           <div className="border rounded-lg p-4">
             <h3 className="font-medium mb-2">Análise e Relatórios</h3>
             <ul className="text-sm text-gray-600 space-y-2">

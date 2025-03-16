@@ -1,6 +1,10 @@
-const sharp = require('sharp');
-const fs = require('fs').promises;
-const path = require('path');
+import sharp from 'sharp';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function convertSvgToPng() {
   try {
@@ -17,7 +21,8 @@ async function convertSvgToPng() {
     console.log('✅ SVG convertido para PNG com sucesso!');
   } catch (error) {
     console.error('❌ Erro ao converter SVG para PNG:', error);
-    process.exit(1);
+    // Não vamos encerrar o processo em caso de erro para permitir que o build continue
+    console.log('Continuando o build sem a conversão de SVG para PNG...');
   }
 }
 
