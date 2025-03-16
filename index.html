@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/6/66/Neovia_Logo-Color.jpg" />
     <link rel="manifest" href="https://luishcuba.github.io/sistema-gestao-chamados/manifest.webmanifest" />
     <title>Sistema de Gestão de Chamados - Orçamento</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
       /* Estilos base */
       :root {
@@ -22,28 +23,29 @@
         --color-success: #10b981;
         --color-warning: #f59e0b;
         --color-danger: #ef4444;
-        --border-radius: 8px;
-        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+        --shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
         --transition: all 0.3s ease;
       }
 
-      /* Animações */
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+      /* Animações melhoradas */
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
       }
       
-      @keyframes slideInRight {
-        from { opacity: 0; transform: translateX(-30px); }
-        to { opacity: 1; transform: translateX(0); }
+      @keyframes shine {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
       }
       
       @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
       }
 
       * {
@@ -53,70 +55,43 @@
       }
 
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
         color: var(--color-text);
-        background-color: #fff;
+        background-color: var(--color-light);
       }
 
       .container {
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 1.5rem;
+        padding: 0 1rem;
       }
 
       /* Tipografia */
-      h1, h2, h3, h4, h5, h6 {
+      h1, h2, h3, h4 {
+        color: var(--color-dark);
+        margin-bottom: 1rem;
         font-weight: 700;
         line-height: 1.2;
-        margin-bottom: 1rem;
-        color: var(--color-dark);
       }
 
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      h2 {
-        font-size: 2rem;
-      }
-
-      h3 {
-        font-size: 1.5rem;
-      }
-
-      h4 {
-        font-size: 1.25rem;
-      }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      h3 { font-size: 1.5rem; }
+      h4 { font-size: 1.25rem; }
 
       p {
-        margin-bottom: 1.5rem;
-      }
-
-      ul {
-        margin-left: 1.5rem;
-        margin-bottom: 1.5rem;
-      }
-
-      a {
-        color: var(--color-primary);
-        text-decoration: none;
-        transition: var(--transition);
-      }
-
-      a:hover {
-        color: var(--color-primary-dark);
-        text-decoration: underline;
+        margin-bottom: 1rem;
+        color: var(--color-text);
       }
 
       /* Header */
       header {
-        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-        padding: 2.5rem 0;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+        padding: 2rem 0;
+        color: white;
         text-align: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
       header h1, header p {
@@ -125,497 +100,92 @@
 
       .logo {
         max-height: 80px;
-        margin-bottom: 1rem;
-        animation: fadeIn 1s ease;
-        background-color: white;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .subtitle {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1.25rem;
-        margin-top: -0.5rem;
+        margin-bottom: 1.5rem;
+        background: white;
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
       }
 
       /* Hero */
       .hero {
-        padding: 5rem 0;
+        padding: 4rem 0;
         text-align: center;
-      }
-
-      .hero h2 {
-        font-size: 2.5rem;
-        max-width: 800px;
-        margin: 0 auto 1.5rem;
-        animation: fadeIn 1s ease 0.3s both;
-      }
-
-      .hero p {
-        font-size: 1.25rem;
-        color: var(--color-text-light);
-        max-width: 700px;
-        margin: 0 auto 2rem;
-        animation: fadeIn 1s ease 0.6s both;
+        background: white;
       }
 
       .hero-actions {
         display: flex;
-        justify-content: center;
         gap: 1rem;
-        flex-wrap: wrap;
-        animation: fadeIn 1s ease 0.9s both;
-      }
-
-      /* Buttons */
-      .btn {
-        display: inline-flex;
-        align-items: center;
         justify-content: center;
-        padding: 0.75rem 1.5rem;
-        border-radius: var(--border-radius);
-        font-weight: 600;
-        text-align: center;
-        transition: var(--transition);
-        cursor: pointer;
-        border: none;
-        text-decoration: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      .btn:hover {
-        text-decoration: none;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      .btn:active {
-        transform: translateY(1px);
-      }
-
-      .btn.primary {
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        color: white;
-      }
-
-      .btn.primary:hover {
-        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-        color: white;
-      }
-
-      .btn.secondary {
-        background: linear-gradient(135deg, #475569 0%, #334155 100%);
-        color: white;
-      }
-
-      .btn.secondary:hover {
-        background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
-        color: white;
-      }
-
-      .btn.outline {
-        background-color: transparent;
-        border: 2px solid var(--color-primary);
-        color: var(--color-primary);
-      }
-
-      .btn.outline:hover {
-        background-color: var(--color-primary);
-        color: white;
-      }
-
-      .btn.large {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
-      }
-
-      /* Seções */
-      section {
-        padding: 5rem 0;
-      }
-
-      .section-title {
-        text-align: center;
-        margin-bottom: 3rem;
-        font-size: 2.25rem;
-        position: relative;
-        animation: fadeIn 1s ease;
-      }
-      
-      .section-title::after {
-        content: "";
-        display: block;
-        width: 80px;
-        height: 4px;
-        background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
-        margin: 1rem auto 0;
-        border-radius: 2px;
-      }
-
-      .section-subtitle {
-        text-align: center;
-        color: var(--color-text-light);
-        font-size: 1.25rem;
-        margin-top: -2rem;
-        margin-bottom: 3rem;
-        animation: fadeIn 1s ease 0.3s both;
+        margin-top: 2rem;
       }
 
       /* Features */
       .features {
-        background-color: white;
+        padding: 4rem 0;
+        background: var(--color-light);
       }
 
       .features-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 2rem;
+        margin-top: 3rem;
       }
 
       .feature-card {
-        background-color: var(--color-light);
-        border-radius: var(--border-radius);
+        background: white;
         padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
         transition: var(--transition);
-        box-shadow: var(--shadow-sm);
-        animation: fadeIn 0.8s ease both;
-        animation-delay: calc(0.2s * var(--animation-order, 0));
       }
 
       .feature-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .feature-card .icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: var(--color-primary);
-      }
-
-      .feature-card h3 {
-        color: var(--color-primary);
-        margin-bottom: 1rem;
-      }
-
-      .feature-card p {
-        color: var(--color-text-light);
-        margin-bottom: 0;
-      }
-
-      /* Pricing */
-      .pricing {
-        background-color: var(--color-light);
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .pricing::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-        border-radius: 50%;
-        z-index: 1;
-      }
-      
-      .pricing::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
-        border-radius: 50%;
-        z-index: 1;
-      }
-
-      .pricing-plans {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-bottom: 3rem;
-        position: relative;
-        z-index: 2;
-      }
-
-      .plan {
-        background-color: white;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow);
-        padding: 2rem;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        transition: var(--transition);
-        border: 1px solid #e2e8f0;
-        overflow: hidden;
-        animation: fadeIn 0.8s ease both;
-      }
-
-      .plan:hover {
-        transform: translateY(-8px);
         box-shadow: var(--shadow-lg);
       }
-      
-      .plan::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 5px;
-        background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
-        opacity: 0;
-        transition: var(--transition);
-      }
-      
-      .plan:hover::before {
-        opacity: 1;
-      }
 
-      .plan.premium {
-        border-color: rgba(37, 99, 235, 0.3);
-        transform: scale(1.05);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        z-index: 2;
-      }
-      
-      .plan.premium:hover {
-        transform: scale(1.05) translateY(-8px);
-      }
-
-      .plan-badge {
-        position: absolute;
-        top: -12px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-        color: white;
-        padding: 0.5rem 1.5rem;
-        border-radius: 20px;
-        font-size: 0.875rem;
-        font-weight: 600;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 3;
-      }
-
-      .plan-header {
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-
-      .plan-description {
-        color: var(--color-text-light);
-        font-size: 1rem;
-      }
-
-      .plan-price {
-        text-align: center;
-        margin-bottom: 1.5rem;
-        position: relative;
-      }
-
-      .plan-price .price {
+      .feature-icon {
         font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--color-dark);
-        display: block;
+        margin-bottom: 1rem;
       }
 
-      .plan-price .period {
-        color: var(--color-text-light);
-        font-size: 1rem;
-      }
-
-      .plan-price.recurring {
-        margin-top: -1rem;
-      }
-
-      .plan-price.recurring .price {
-        font-size: 1.75rem;
-        color: var(--color-primary);
-      }
-
-      .plan-features {
-        margin-bottom: 2rem;
-        flex-grow: 1;
-      }
-
-      .plan-features ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .plan-features li {
-        padding: 0.75rem 0;
-        border-bottom: 1px solid #e2e8f0;
-        position: relative;
-        padding-left: 1.5rem;
-        transition: var(--transition);
-      }
-      
-      .plan-features li:hover {
-        background-color: rgba(37, 99, 235, 0.03);
-        border-radius: 4px;
-        padding-left: 1.75rem;
-      }
-
-      .plan-features li:last-child {
-        border-bottom: none;
-      }
-
-      .plan-features li::before {
-        content: "✓";
-        color: var(--color-success);
-        position: absolute;
-        left: 0;
-        top: 0.75rem;
-      }
-
-      .plan-action {
-        text-align: center;
-      }
-
-      .pricing-note {
-        background-color: white;
-        border-radius: var(--border-radius);
-        padding: 2rem;
-        box-shadow: var(--shadow-sm);
-        margin-top: 2rem;
-        position: relative;
-        z-index: 2;
-        animation: fadeIn 1s ease 0.6s both;
-      }
-
-      .pricing-note h3 {
-        text-align: center;
-        margin-bottom: 1.5rem;
-      }
-
-      .pricing-note-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-      }
-
-      .note-item {
-        display: flex;
-        align-items: center;
-        padding: 0.75rem;
-        transition: var(--transition);
-        border-radius: var(--border-radius);
-      }
-      
-      .note-item:hover {
-        background-color: rgba(37, 99, 235, 0.05);
-        transform: translateX(5px);
-      }
-
-      .note-icon {
-        color: var(--color-success);
-        margin-right: 0.75rem;
-        font-weight: bold;
-        font-size: 1.2rem;
-      }
-
-      /* Detalhes */
+      /* Tabs */
       .details {
-        background-color: white;
-      }
-
-      .details-tabs {
-        margin-top: 2rem;
+        padding: 4rem 0;
+        background: white;
       }
 
       .tabs-nav {
         display: flex;
-        border-bottom: 2px solid #e2e8f0;
+        gap: 1rem;
         margin-bottom: 2rem;
-        overflow-x: auto;
-        padding-bottom: 1px;
-        position: relative;
-      }
-      
-      .tabs-nav::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 2px;
-        width: 50px;
-        background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
-        pointer-events: none;
+        border-bottom: 2px solid var(--color-light);
+        padding-bottom: 1rem;
       }
 
       .tab-btn {
-        padding: 1rem 2rem;
-        background: none;
+        padding: 0.75rem 1.5rem;
         border: none;
+        background: none;
         font-weight: 600;
-        color: var(--color-text-light);
+        color: var(--color-text);
         cursor: pointer;
-        position: relative;
-        transition: var(--transition);
-        white-space: nowrap;
-      }
-
-      .tab-btn::after {
-        content: "";
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
-        transform: scaleX(0);
         transition: var(--transition);
       }
 
       .tab-btn.active {
         color: var(--color-primary);
-      }
-
-      .tab-btn.active::after {
-        transform: scaleX(1);
-      }
-      
-      .tab-btn:hover:not(.active) {
-        color: var(--color-primary-dark);
-        background-color: rgba(37, 99, 235, 0.05);
-        border-radius: 4px 4px 0 0;
+        border-bottom: 2px solid var(--color-primary);
       }
 
       .tab-content {
         display: none;
-        animation: fadeIn 0.5s ease;
       }
 
       .tab-content.active {
         display: block;
-      }
-
-      .tab-content h3 {
-        margin-bottom: 1.5rem;
-        position: relative;
-        display: inline-block;
-      }
-      
-      .tab-content h3::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -5px;
-        width: 50px;
-        height: 3px;
-        background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
-        border-radius: 3px;
       }
 
       /* Tech Grid */
@@ -626,131 +196,39 @@
       }
 
       .tech-item {
-        background-color: var(--color-light);
+        background: var(--color-light);
         padding: 1.5rem;
         border-radius: var(--border-radius);
-        transition: var(--transition);
-        animation: fadeIn 0.8s ease both;
-        animation-delay: calc(0.2s * var(--animation-order, 0));
-      }
-      
-      .tech-item:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow);
-      }
-
-      .tech-item h4 {
-        color: var(--color-primary);
-        margin-bottom: 1rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-      }
-      
-      .tech-item h4::before {
-        content: "⚙️";
-        margin-right: 0.5rem;
-        font-size: 1.2rem;
-      }
-      
-      .tech-item ul li {
-        margin-bottom: 0.5rem;
-        position: relative;
-        padding-left: 1.25rem;
-      }
-      
-      .tech-item ul li::before {
-        content: "▹";
-        position: absolute;
-        left: 0;
-        color: var(--color-primary);
       }
 
       /* Timeline */
       .timeline {
-        position: relative;
-        margin: 2rem 0 3rem;
-      }
-
-      .timeline::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 20px;
-        height: 100%;
-        width: 2px;
-        background: linear-gradient(to bottom, var(--color-primary), rgba(37, 99, 235, 0.3));
-        border-radius: 1px;
+        margin: 2rem 0;
       }
 
       .timeline-item {
         display: flex;
+        gap: 1.5rem;
         margin-bottom: 2rem;
-        position: relative;
-        animation: fadeIn 0.8s ease both;
-        animation-delay: calc(0.2s * var(--animation-order, 0));
       }
 
       .timeline-marker {
         width: 40px;
         height: 40px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        background: var(--color-primary);
         color: white;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: bold;
-        position: relative;
-        z-index: 2;
         flex-shrink: 0;
-        margin-right: 1.5rem;
-        box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.1);
-        transition: var(--transition);
-      }
-      
-      .timeline-item:hover .timeline-marker {
-        transform: scale(1.1);
-        box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.15);
       }
 
       .timeline-content {
-        padding-top: 0.5rem;
-        background-color: white;
+        flex: 1;
+        background: var(--color-light);
+        padding: 1.5rem;
         border-radius: var(--border-radius);
-        padding: 1rem 1.5rem;
-        border-left: 3px solid var(--color-primary);
-        box-shadow: var(--shadow-sm);
-        transition: var(--transition);
-        flex-grow: 1;
-      }
-      
-      .timeline-item:hover .timeline-content {
-        transform: translateX(5px);
-        box-shadow: var(--shadow);
-      }
-
-      .timeline-content h4 {
-        margin-bottom: 0.5rem;
-        color: var(--color-primary);
-      }
-
-      .timeline-content p {
-        color: var(--color-text-light);
-        margin-bottom: 0;
-      }
-
-      .timeline-total {
-        font-weight: 600;
-        color: var(--color-primary);
-        text-align: right;
-        margin-top: 1rem;
-        animation: fadeIn 1s ease 0.8s both;
-        padding: 0.75rem 1.5rem;
-        background-color: rgba(37, 99, 235, 0.05);
-        border-radius: var(--border-radius);
-        display: inline-block;
-        float: right;
       }
 
       /* Support Grid */
@@ -761,259 +239,219 @@
       }
 
       .support-item {
-        background-color: var(--color-light);
+        background: var(--color-light);
         padding: 1.5rem;
         border-radius: var(--border-radius);
-        box-shadow: var(--shadow-sm);
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        animation: fadeIn 0.8s ease both;
-        animation-delay: calc(0.2s * var(--animation-order, 0));
-      }
-      
-      .support-item::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(37, 99, 235, 0.03);
-        z-index: -1;
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.5s ease;
-      }
-      
-      .support-item:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow);
-      }
-      
-      .support-item:hover::before {
-        transform: scaleX(1);
-        transform-origin: left;
       }
 
-      .support-item h4 {
-        color: var(--color-primary);
-        margin-bottom: 1rem;
+      /* Pricing */
+      .pricing {
+        padding: 4rem 0;
+        background: var(--color-light);
+      }
+
+      .pricing-plans {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+
+      .plan {
+        background: white;
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        position: relative;
+      }
+
+      .plan.premium {
+        border: 2px solid var(--color-primary);
+      }
+
+      .plan-badge {
+        position: absolute;
+        top: -12px;
+        right: 1rem;
+        background: var(--color-primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+      }
+
+      .plan-price {
+        text-align: center;
+        margin: 1.5rem 0;
+      }
+
+      .price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-dark);
+      }
+
+      .period {
+        color: var(--color-text-light);
+      }
+
+      .plan-features {
+        margin: 1.5rem 0;
+      }
+
+      .plan-features li {
+        margin-bottom: 0.75rem;
         display: flex;
         align-items: center;
-      }
-      
-      .support-item h4::before {
-        content: "";
-        width: 25px;
-        height: 25px;
-        background-color: rgba(37, 99, 235, 0.1);
-        margin-right: 0.75rem;
-        border-radius: 50%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 60%;
-      }
-      
-      .support-item:nth-child(1) h4::before {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M13 14h-2v-2h2m0-6h-2v4h2M12 22c-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z'/%3E%3C/svg%3E");
-      }
-      
-      .support-item:nth-child(2) h4::before {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M12 16c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3m0-9c3.31 0 6 2.69 6 6 0 .93-.22 1.81-.59 2.59l3.53 3.53L20 20.06l-3.53-3.53C15.5 17.21 13.81 18 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6m10-3H2v2h20V4z'/%3E%3C/svg%3E");
-      }
-      
-      .support-item:nth-child(3) h4::before {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M21 11c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4 9 4v6m-9 10c4.09-1.35 7-5.57 7-10V6.3l-7-3.11L5 6.3V11c0 4.43 2.91 8.65 7 10z'/%3E%3C/svg%3E");
-      }
-
-      .support-item p {
-        margin-bottom: 0.75rem;
-      }
-
-      .support-item p:last-child {
-        margin-bottom: 0;
+        gap: 0.5rem;
       }
 
       /* CTA */
       .cta {
-        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        padding: 4rem 0;
+        background: var(--color-primary);
         color: white;
         text-align: center;
-        border-radius: 0;
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .cta::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.03)" width="50" height="50" x="0" y="0"></rect><rect fill="rgba(255,255,255,0.03)" width="50" height="50" x="50" y="50"></rect></svg>');
-        opacity: 0.3;
       }
 
-      .cta h2 {
+      .cta h2, .cta p {
         color: white;
-        font-size: 2.25rem;
-        margin-bottom: 1rem;
-        position: relative;
-        animation: fadeIn 1s ease;
-      }
-
-      .cta p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1.25rem;
-        margin-bottom: 2.5rem;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-        animation: fadeIn 1s ease 0.3s both;
       }
 
       .cta-actions {
         display: flex;
         gap: 1rem;
         justify-content: center;
-        flex-wrap: wrap;
-        position: relative;
-        animation: fadeIn 1s ease 0.6s both;
-      }
-
-      .cta .btn.outline {
-        border-color: white;
-        color: white;
-      }
-
-      .cta .btn.outline:hover {
-        background-color: white;
-        color: var(--color-primary);
-      }
-
-      .cta .btn.primary {
-        background-color: white;
-        color: var(--color-primary);
-      }
-
-      .cta .btn.primary:hover {
-        background-color: #f1f5f9;
+        margin-top: 2rem;
       }
 
       /* Footer */
       footer {
-        background-color: var(--color-dark);
-        color: #94a3b8;
-        padding: 4rem 0 2rem;
+        padding: 4rem 0;
+        background: var(--color-dark);
+        color: white;
       }
 
       .footer-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        margin-bottom: 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
       }
 
       .footer-logo {
         max-height: 60px;
         margin-bottom: 1rem;
-      }
-
-      .footer-col p {
-        color: #94a3b8;
-      }
-
-      .footer-col h3 {
-        color: white;
-        margin-bottom: 1.5rem;
+        background: white;
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
       }
 
       .contact-list {
         list-style: none;
-        margin: 0;
-        padding: 0;
       }
 
       .contact-list li {
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
       }
 
       .contact-list a {
-        color: #94a3b8;
-        transition: var(--transition);
-      }
-
-      .contact-list a:hover {
         color: white;
         text-decoration: none;
       }
 
       .footer-bottom {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 2rem;
         text-align: center;
       }
 
-      /* Responsive improvements */
+      /* Botões */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .btn.primary {
+        background: var(--color-primary);
+        color: white;
+      }
+
+      .btn.primary:hover {
+        background: var(--color-primary-dark);
+      }
+
+      .btn.secondary {
+        background: var(--color-secondary);
+        color: white;
+      }
+
+      .btn.outline {
+        border: 2px solid white;
+        color: white;
+      }
+
+      .btn.outline:hover {
+        background: white;
+        color: var(--color-primary);
+      }
+
+      /* Responsividade */
       @media (max-width: 768px) {
-        .features-grid {
-          grid-template-columns: 1fr;
+        .container {
+          padding: 0 1rem;
         }
-        
-        .btn {
-          width: 100%;
-          margin-bottom: 0.5rem;
-        }
-        
+
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.75rem; }
+
         .hero-actions {
           flex-direction: column;
-          width: 100%;
-          max-width: 400px;
-          margin: 0 auto;
         }
-        
-        .section-title {
-          font-size: 1.75rem;
-        }
-        
-        .hero h2 {
-          font-size: 1.75rem;
-        }
-        
-        .plan.premium {
-          transform: scale(1);
-          order: -1;
-        }
-        
-        .plan.premium:hover {
-          transform: translateY(-8px);
-        }
-        
-        .pricing-plans {
-          gap: 2.5rem;
-        }
-        
+
         .tabs-nav {
-          padding-bottom: 0;
+          overflow-x: auto;
+          padding-bottom: 1rem;
         }
-        
+
         .tab-btn {
-          padding: 0.75rem 1.25rem;
-          font-size: 0.9rem;
+          white-space: nowrap;
         }
-        
-        .timeline-content {
-          padding: 0.75rem 1rem;
+
+        .timeline-item {
+          flex-direction: column;
         }
-        
+
         .timeline-marker {
-          width: 30px;
-          height: 30px;
-          font-size: 0.9rem;
+          margin-bottom: 1rem;
+        }
+
+        .cta-actions {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .features-grid,
+        .tech-grid,
+        .support-grid,
+        .pricing-plans {
+          grid-template-columns: 1fr;
+        }
+
+        .plan {
+          margin-bottom: 2rem;
         }
       }
     </style>
@@ -1032,36 +470,40 @@
         <h2>Solução Completa para Gestão de Chamados Técnicos</h2>
         <p>Sistema web responsivo para controle de chamados de equipamentos e serviços</p>
         <div class="hero-actions">
-          <a href="#orcamento" class="btn primary">Ver Orçamento</a>
-          <a href="#funcionalidades" class="btn secondary">Funcionalidades</a>
+          <a href="#orcamento" class="btn primary">
+            <span>💰 Ver Orçamento</span>
+          </a>
+          <a href="#funcionalidades" class="btn secondary">
+            <span>⚡ Funcionalidades</span>
+          </a>
         </div>
       </section>
 
       <section id="funcionalidades" class="features container">
         <h2 class="section-title">Funcionalidades Principais</h2>
         <div class="features-grid">
-          <div class="feature-card" style="--animation-order: 1">
-            <div class="icon">📋</div>
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-icon">🎯</div>
             <h3>Gestão de Chamados</h3>
             <p>Acompanhamento em tempo real do status dos chamados, com priorização automática e distribuição inteligente.</p>
           </div>
-          <div class="feature-card" style="--animation-order: 2">
-            <div class="icon">📊</div>
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-icon">📊</div>
             <h3>Relatórios Detalhados</h3>
             <p>Dashboards personalizáveis com métricas importantes e KPIs para tomada de decisão.</p>
           </div>
-          <div class="feature-card" style="--animation-order: 3">
-            <div class="icon">⏱️</div>
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon">⚡</div>
             <h3>SLA Personalizado</h3>
             <p>Definição e monitoramento de SLAs específicos para diferentes tipos de equipamentos e prioridades.</p>
           </div>
-          <div class="feature-card" style="--animation-order: 4">
-            <div class="icon">🔒</div>
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="feature-icon">🔐</div>
             <h3>Segurança Avançada</h3>
             <p>Controle de acesso baseado em papéis e registro completo de todas as ações realizadas.</p>
           </div>
-          <div class="feature-card" style="--animation-order: 5">
-            <div class="icon">🔧</div>
+          <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="feature-icon">🛠️</div>
             <h3>Manutenção Preventiva</h3>
             <p>Agendamento e controle de manutenções preventivas para reduzir tempo de inatividade.</p>
           </div>
@@ -1074,10 +516,10 @@
           
           <div class="details-tabs">
             <div class="tabs-nav">
-              <button class="tab-btn active" data-tab="escopo">Escopo</button>
-              <button class="tab-btn" data-tab="tecnologia">Tecnologia</button>
-              <button class="tab-btn" data-tab="prazos">Prazos</button>
-              <button class="tab-btn" data-tab="suporte">Suporte</button>
+              <button class="tab-btn active" data-tab="escopo">📋 Escopo</button>
+              <button class="tab-btn" data-tab="tecnologia">💻 Tecnologia</button>
+              <button class="tab-btn" data-tab="prazos">⏱️ Prazos</button>
+              <button class="tab-btn" data-tab="suporte">🛟 Suporte</button>
             </div>
             
             <div class="tabs-content">
@@ -1085,21 +527,21 @@
                 <h3>Escopo do Projeto</h3>
                 <p>O Sistema de Gestão de Chamados inclui:</p>
                 <ul>
-                  <li>Cadastro e gestão de usuários com níveis de acesso</li>
-                  <li>Cadastro e controle de equipamentos</li>
-                  <li>Abertura e acompanhamento de chamados</li>
-                  <li>Sistema de SLAs com alertas de vencimento</li>
-                  <li>Dashboard com indicadores e gráficos</li>
-                  <li>Relatórios gerenciais</li>
-                  <li>Histórico de manutenções</li>
+                  <li>👥 Cadastro e gestão de usuários com níveis de acesso</li>
+                  <li>🔧 Cadastro e controle de equipamentos</li>
+                  <li>📝 Abertura e acompanhamento de chamados</li>
+                  <li>⏰ Sistema de SLAs com alertas de vencimento</li>
+                  <li>📊 Dashboard com indicadores e gráficos</li>
+                  <li>📈 Relatórios gerenciais</li>
+                  <li>📋 Histórico de manutenções</li>
                 </ul>
               </div>
               
               <div class="tab-content" id="tecnologia">
                 <h3>Tecnologias Utilizadas</h3>
                 <div class="tech-grid">
-                  <div class="tech-item" style="--animation-order: 1">
-                    <h4>Frontend</h4>
+                  <div class="tech-item" data-aos="fade-right">
+                    <h4>🎨 Frontend</h4>
                     <ul>
                       <li>React.js</li>
                       <li>Tailwind CSS</li>
@@ -1107,8 +549,8 @@
                       <li>PWA (Progressive Web App)</li>
                     </ul>
                   </div>
-                  <div class="tech-item" style="--animation-order: 2">
-                    <h4>Backend</h4>
+                  <div class="tech-item" data-aos="fade-up">
+                    <h4>⚙️ Backend</h4>
                     <ul>
                       <li>Node.js</li>
                       <li>Express</li>
@@ -1116,8 +558,8 @@
                       <li>API RESTful</li>
                     </ul>
                   </div>
-                  <div class="tech-item" style="--animation-order: 3">
-                    <h4>Infraestrutura</h4>
+                  <div class="tech-item" data-aos="fade-left">
+                    <h4>🚀 Infraestrutura</h4>
                     <ul>
                       <li>AWS ou Azure Cloud</li>
                       <li>Docker</li>
@@ -1131,54 +573,54 @@
               <div class="tab-content" id="prazos">
                 <h3>Prazos e Entregas</h3>
                 <div class="timeline">
-                  <div class="timeline-item" style="--animation-order: 1">
+                  <div class="timeline-item" data-aos="fade-right">
                     <div class="timeline-marker">1</div>
                     <div class="timeline-content">
-                      <h4>Análise e Planejamento</h4>
+                      <h4>📋 Análise e Planejamento</h4>
                       <p>2 semanas - Levantamento de requisitos e design da solução</p>
                     </div>
                   </div>
-                  <div class="timeline-item" style="--animation-order: 2">
+                  <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
                     <div class="timeline-marker">2</div>
                     <div class="timeline-content">
-                      <h4>Desenvolvimento</h4>
+                      <h4>💻 Desenvolvimento</h4>
                       <p>8 semanas - Implementação das funcionalidades</p>
                     </div>
                   </div>
-                  <div class="timeline-item" style="--animation-order: 3">
+                  <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
                     <div class="timeline-marker">3</div>
                     <div class="timeline-content">
-                      <h4>Testes e Ajustes</h4>
+                      <h4>🔍 Testes e Ajustes</h4>
                       <p>2 semanas - Testes intensivos e correções</p>
                     </div>
                   </div>
-                  <div class="timeline-item" style="--animation-order: 4">
+                  <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
                     <div class="timeline-marker">4</div>
                     <div class="timeline-content">
-                      <h4>Implantação</h4>
+                      <h4>🚀 Implantação</h4>
                       <p>2 semanas - Deployment e treinamento dos usuários</p>
                     </div>
                   </div>
                 </div>
-                <div class="timeline-total">Prazo total estimado: 14 semanas (3,5 meses)</div>
+                <div class="timeline-total">⏱️ Prazo total estimado: 14 semanas (3,5 meses)</div>
               </div>
               
               <div class="tab-content" id="suporte">
                 <h3>Suporte e Manutenção</h3>
                 <div class="support-grid">
-                  <div class="support-item" style="--animation-order: 1">
-                    <h4>Suporte Técnico</h4>
+                  <div class="support-item" data-aos="zoom-in">
+                    <h4>🎯 Suporte Técnico</h4>
                     <p>Horário de atendimento: Seg-Sex, 08h às 18h</p>
                     <p>Tempo de resposta para incidentes críticos: 2 horas</p>
                   </div>
-                  <div class="support-item" style="--animation-order: 2">
-                    <h4>Manutenção Preventiva</h4>
+                  <div class="support-item" data-aos="zoom-in" data-aos-delay="100">
+                    <h4>🔧 Manutenção Preventiva</h4>
                     <p>Verificações mensais do sistema</p>
                     <p>Atualizações de segurança</p>
                     <p>Otimização de performance</p>
                   </div>
-                  <div class="support-item" style="--animation-order: 3">
-                    <h4>Monitoramento</h4>
+                  <div class="support-item" data-aos="zoom-in" data-aos-delay="200">
+                    <h4>📊 Monitoramento</h4>
                     <p>Monitoramento 24/7 da infraestrutura</p>
                     <p>Alertas automáticos de incidentes</p>
                     <p>Backup diário com retenção de 30 dias</p>
@@ -1196,10 +638,10 @@
           <p class="section-subtitle">Escolha o plano que melhor atende às suas necessidades</p>
           
           <div class="pricing-plans">
-            <div class="plan premium">
-              <div class="plan-badge">Recomendado</div>
+            <div class="plan premium" data-aos="fade-up">
+              <div class="plan-badge">⭐ Recomendado</div>
               <div class="plan-header">
-                <h3>Desenvolvimento Customizado</h3>
+                <h3>💎 Desenvolvimento Customizado</h3>
                 <p class="plan-description">Solução completa com personalização total</p>
               </div>
               <div class="plan-price">
@@ -1212,23 +654,25 @@
               </div>
               <div class="plan-features">
                 <ul>
-                  <li>Sistema totalmente personalizado</li>
-                  <li>Integrações específicas</li>
-                  <li>Suporte dedicado 8x5</li>
-                  <li>Servidor dedicado</li>
-                  <li>Monitoramento 24x7</li>
-                  <li>Backup diário</li>
-                  <li>Manutenções preventivas</li>
+                  <li>✨ Sistema totalmente personalizado</li>
+                  <li>🔄 Integrações específicas</li>
+                  <li>🎯 Suporte dedicado 8x5</li>
+                  <li>💻 Servidor dedicado</li>
+                  <li>📊 Monitoramento 24x7</li>
+                  <li>💾 Backup diário</li>
+                  <li>🔧 Manutenções preventivas</li>
                 </ul>
               </div>
               <div class="plan-action">
-                <a href="mailto:adm@luiscuba.tech?subject=Interesse%20no%20Sistema%20de%20Chamados%20-%20Plano%20Premium" class="btn primary">Solicitar Proposta</a>
+                <a href="mailto:adm@luiscuba.tech?subject=Interesse%20no%20Sistema%20de%20Chamados%20-%20Plano%20Premium" class="btn primary">
+                  <span>📩 Solicitar Proposta</span>
+                </a>
               </div>
             </div>
             
-            <div class="plan standard">
+            <div class="plan standard" data-aos="fade-up" data-aos-delay="100">
               <div class="plan-header">
-                <h3>Solução No-Code</h3>
+                <h3>🚀 Solução No-Code</h3>
                 <p class="plan-description">Implementação rápida com Glide Apps</p>
               </div>
               <div class="plan-price">
@@ -1241,45 +685,47 @@
               </div>
               <div class="plan-features">
                 <ul>
-                  <li>Implementação rápida</li>
-                  <li>Customização básica</li>
-                  <li>Suporte por email</li>
-                  <li>Hospedagem na plataforma Glide</li>
-                  <li>Atualizações automáticas</li>
-                  <li>Documentação completa</li>
+                  <li>⚡ Implementação rápida</li>
+                  <li>🎨 Customização básica</li>
+                  <li>📧 Suporte por email</li>
+                  <li>☁️ Hospedagem na plataforma Glide</li>
+                  <li>🔄 Atualizações automáticas</li>
+                  <li>📚 Documentação completa</li>
                 </ul>
               </div>
               <div class="plan-action">
-                <a href="mailto:adm@luiscuba.tech?subject=Interesse%20no%20Sistema%20de%20Chamados%20-%20Plano%20Standard" class="btn secondary">Solicitar Proposta</a>
+                <a href="mailto:adm@luiscuba.tech?subject=Interesse%20no%20Sistema%20de%20Chamados%20-%20Plano%20Standard" class="btn secondary">
+                  <span>📩 Solicitar Proposta</span>
+                </a>
               </div>
             </div>
           </div>
           
-          <div class="pricing-note">
-            <h3>O que está incluído na sustentação mensal?</h3>
+          <div class="pricing-note" data-aos="fade-up">
+            <h3>💫 O que está incluído na sustentação mensal?</h3>
             <div class="pricing-note-grid">
               <div class="note-item">
-                <div class="note-icon">✓</div>
+                <div class="note-icon">✨</div>
                 <div class="note-text">Monitoramento do sistema</div>
               </div>
               <div class="note-item">
-                <div class="note-icon">✓</div>
+                <div class="note-icon">🔒</div>
                 <div class="note-text">Atualizações de segurança</div>
               </div>
               <div class="note-item">
-                <div class="note-icon">✓</div>
+                <div class="note-icon">🔧</div>
                 <div class="note-text">Correções de bugs</div>
               </div>
               <div class="note-item">
-                <div class="note-icon">✓</div>
+                <div class="note-icon">🎯</div>
                 <div class="note-text">Suporte técnico</div>
               </div>
               <div class="note-item">
-                <div class="note-icon">✓</div>
+                <div class="note-icon">☁️</div>
                 <div class="note-text">Infraestrutura cloud</div>
               </div>
               <div class="note-item">
-                <div class="note-icon">✓</div>
+                <div class="note-icon">💾</div>
                 <div class="note-text">Backup de dados</div>
               </div>
             </div>
@@ -1289,11 +735,15 @@
 
       <section class="cta">
         <div class="container">
-          <h2>Pronto para Transformar sua Gestão de Chamados?</h2>
+          <h2>🚀 Pronto para Transformar sua Gestão de Chamados?</h2>
           <p>Entre em contato conosco e agende uma demonstração personalizada</p>
           <div class="cta-actions">
-            <a href="mailto:adm@luiscuba.tech?subject=Demonstração%20do%20Sistema%20de%20Chamados" class="btn primary large">Agendar Demonstração</a>
-            <a href="tel:+5519981621022" class="btn outline">Ligação Direta</a>
+            <a href="mailto:adm@luiscuba.tech?subject=Demonstração%20do%20Sistema%20de%20Chamados" class="btn primary large">
+              <span>📅 Agendar Demonstração</span>
+            </a>
+            <a href="tel:+5519981621022" class="btn outline">
+              <span>📞 Ligação Direta</span>
+            </a>
           </div>
         </div>
       </section>
@@ -1307,11 +757,11 @@
             <p>Sistema de gestão de chamados técnicos desenvolvido para otimizar processos e aumentar a eficiência operacional.</p>
           </div>
           <div class="footer-col">
-            <h3>Contato</h3>
+            <h3>📞 Contato</h3>
             <ul class="contact-list">
-              <li><strong>Email:</strong> <a href="mailto:adm@luiscuba.tech">adm@luiscuba.tech</a></li>
-              <li><strong>Telefone:</strong> <a href="tel:+5519981621022">(19) 98162-1022</a></li>
-              <li><strong>Website:</strong> <a href="https://luiscuba.tech" target="_blank">www.luiscuba.tech</a></li>
+              <li><strong>📧 Email:</strong> <a href="mailto:adm@luiscuba.tech">adm@luiscuba.tech</a></li>
+              <li><strong>📱 Telefone:</strong> <a href="tel:+5519981621022">(19) 98162-1022</a></li>
+              <li><strong>🌐 Website:</strong> <a href="https://luiscuba.tech" target="_blank">www.luiscuba.tech</a></li>
             </ul>
           </div>
         </div>
@@ -1321,45 +771,52 @@
       </div>
     </footer>
     
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      // JavaScript para tabs
       document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar AOS (Animate On Scroll)
+        AOS.init({
+          duration: 800,
+          once: true
+        });
+
+        // Funcionalidade das tabs
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
-        
+
         tabBtns.forEach(btn => {
-          btn.addEventListener('click', function() {
-            const tabId = this.dataset.tab;
-            
-            // Remove active class from all buttons and contents
+          btn.addEventListener('click', () => {
+            // Remover classe active de todos os botões e conteúdos
             tabBtns.forEach(b => b.classList.remove('active'));
             tabContents.forEach(c => c.classList.remove('active'));
-            
-            // Add active class to current button and content
-            this.classList.add('active');
+
+            // Adicionar classe active ao botão clicado
+            btn.classList.add('active');
+
+            // Mostrar o conteúdo correspondente
+            const tabId = btn.getAttribute('data-tab');
             document.getElementById(tabId).classList.add('active');
           });
         });
-        
-        // Animação para os elementos conforme scroll
-        const animateOnScroll = function() {
-          const elements = document.querySelectorAll('.feature-card, .plan, .section-title, .section-subtitle');
-          
-          elements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementTop < windowHeight - 100) {
-              element.style.opacity = '1';
+
+        // Ativar a primeira tab por padrão
+        if (tabBtns.length > 0) {
+          tabBtns[0].click();
+        }
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
             }
           });
-        };
-        
-        // Inicializar animações
-        animateOnScroll();
-        
-        // Executar a cada scroll
-        window.addEventListener('scroll', animateOnScroll);
+        });
       });
     </script>
   </body>
