@@ -2,16 +2,47 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/icons/icon-72x72.png" />
+    <link rel="icon" type="image/svg+xml" href="https://luishcuba.github.io/sistema-gestao-chamados/icons/icon-72x72.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2563eb" />
     <meta name="description" content="Sistema web responsivo para gestão de chamados técnicos" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="https://luishcuba.github.io/sistema-gestao-chamados/icons/icon-192x192.png" />
+    <link rel="manifest" href="https://luishcuba.github.io/sistema-gestao-chamados/manifest.webmanifest" />
     <title>Sistema de Gestão de Chamados</title>
+    <style>
+      .fallback-content {
+        display: none;
+        text-align: center;
+        margin-top: 2rem;
+        font-family: Arial, sans-serif;
+      }
+      .fallback-logo {
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+      }
+    </style>
+    <script>
+      window.onload = function() {
+        console.log('Página carregada!');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="fallback-content" id="fallbackContent">
+      <img src="https://luishcuba.github.io/sistema-gestao-chamados/src/logos%20neovia/Logo%20Color.png" alt="Neovia Logo" class="fallback-logo">
+      <h1>Sistema de Gestão de Chamados</h1>
+      <p>Carregando a aplicação...</p>
+    </div>
+    <script type="module" src="./src/main.tsx"></script>
+    <script>
+      // Exibir conteúdo de fallback após 3 segundos se a aplicação não carregar
+      setTimeout(function() {
+        if (!document.getElementById('root').hasChildNodes()) {
+          document.getElementById('fallbackContent').style.display = 'block';
+        }
+      }, 3000);
+    </script>
   </body>
 </html>
